@@ -1,4 +1,5 @@
 import datetime
+from Voter import Voter
 from filemgr import filemanager
 from datetime import date
 from vtrmgr import votermgr
@@ -20,10 +21,11 @@ def main():
                   age=int(input("Enter your age here\t"))
                   vid=raw_input("Enter your unique voter id here\t")
                   aadhar=raw_input("Enter your aadhar number here\t")          
-                  vtr=votermgr(name,aadhar,vid,age)
-                  if vtr.isValid()==True :
-	             fm.addvoter(name,vid)
-		     fm.displayvoters()
+                  
+		  VoterMgr=votermgr(vid,aadhar,name,age)
+                  if VoterMgr.isValid(VoterMgr)==True :
+	            VoterMgr.add(VoterMgr)
+		    VoterMgr.listvoter()
 		  vtch = raw_input("Add Voter?? [Y/N] \t")
 	      else:
 		  user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\nExit--->[E]")
