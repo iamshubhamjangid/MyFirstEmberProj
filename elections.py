@@ -52,6 +52,7 @@ def main():
                   if CdMgr.isValid(candidate)==True :
 		     opt=raw_input("Choose one the options\nAdd Candidate---->(A)\n Delete Candidate---->(D)\n")
 		     filemanager.Candidateoptions[opt](candidate)
+		     CdMgr.addon(candidate)
 		  cdch = raw_input("Add Candidate?? [Y/N] \t")
 	      else:
 		  opt=raw_input("Choose one the options\nDisplay Candidate---->(C)\n")
@@ -78,7 +79,6 @@ def main():
 
 		else:
 		    print today
-		    print("Ye kya nautanki h!!")
   else:
 	print "Voting Registrain has closed"
 if __name__ == "__main__":
