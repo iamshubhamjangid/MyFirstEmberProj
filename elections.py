@@ -27,18 +27,22 @@ def main():
                   if vtr.isValid(voter)==True :
 	             opt=raw_input("\n--------------\nChoose one the options\nAdd Voter---->(A)\nDelete Voter---->(D)\n")
 		     filemanager.Voteroptions[opt](voter) 
-		     vtr.addon(voter)
 		  choice=raw_input("Want to delete the voter??\t")
 		  if (choice=='y' or 'Y'):
 			vtr_id=raw_input("Enter the voter id which you want to delete \t")
-			vtr.deleteon(vtr_id)	
+			vtr.delete(vtr_id)	
 		  else:
 			pass 
 		  vtch = raw_input("Add Voter?? [Y/N] \t")
 	      else:
-		  opt=raw_input("\n-------------\nChoose one the options\nDisplay Voter---->(V)\n")
-		  filemanager.listing[opt]()
-		  user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\nExit--->[E]")
+		   choice=raw_input("Want to delete the voter??\t")
+		   if (choice=='y' or 'Y'):
+			vtr=votermgr()
+			vtr_id=raw_input("Enter the voter id which you want to delete \t")
+			vtr.delete(vtr_id)
+		   opt=raw_input("\n-------------\nChoose one the options\nDisplay Voter---->(V)\n")
+		   filemanager.listing[opt]()
+		   user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\nExit--->[E]")
     	  elif user=='c' or user=='C':
 	      cdch = raw_input("Add Candidate?? [Y/N] \t")
 	      while cdch=='y' or cdch=='Y':
@@ -52,12 +56,17 @@ def main():
                   if CdMgr.isValid(candidate)==True :
 		     opt=raw_input("Choose one the options\nAdd Candidate---->(A)\n Delete Candidate---->(D)\n")
 		     filemanager.Candidateoptions[opt](candidate)
-		     CdMgr.addon(candidate)
 		  cdch = raw_input("Add Candidate?? [Y/N] \t")
 	      else:
-		  opt=raw_input("Choose one the options\nDisplay Candidate---->(C)\n")
-		  filemanager.listing[opt]()
-		  user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\Exit--->[E]n")
+		   choice=raw_input("Want to delete the Candidate??\t")
+		   if (choice=='y' or 'Y'):
+			CdMgr=candidatemgr()
+			cd_id=raw_input("Enter the voter id which you want to delete \t")
+			CdMgr.delete(cd_id)
+		   
+		   opt=raw_input("Choose one the options\nDisplay Candidate---->(C)\n")
+		   filemanager.listing[opt]()
+		   user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\Exit--->[E]n")
 	  else:
 		print("\n------------------------------\nNow Election Manger will Commence the Election Date here\n-----------------------\n")
 		elm=electionmgr()
@@ -73,12 +82,13 @@ def main():
 				for cndt in cdict:	
 					print cndt
 					print ""
+			
 
 			else:
 				print("you are not registerd for voting!!!")			
 
 		else:
-		    print today
+		    print("Voting hasn't started \n")
   else:
 	print "Voting Registrain has closed"
 if __name__ == "__main__":

@@ -1,4 +1,7 @@
+import psycopg2
 from Candidate import Candidate
+conn = psycopg2.connect(database="election", user = "postgres", password = "postgres", host = "127.0.0.1", port = "5432")
+cur = conn.cursor()
 class candidatemgr():
     cddict={}
     def isValid(self,candidate):
@@ -10,14 +13,21 @@ class candidatemgr():
 	    print("You are not satisfying the minimum requirements to be a candidtae!!!\n You are under 28!!")
    
     def add(self,candidate):
-	self.cddict[candidate.c_id]=candidate.c_name
+	query="INSERT INTO CANDIDATE VALUES (%s,%s,%s,%s)"
+	data=(candidate.c_id,candidate.c_name,candidate.c_age,candidate.c_aadhar)
+	cur.execute(query,data);
+	conn.commit()
+	print "Data successfully added"
 
     def addon(self,candidate):
 	candidatemgr.filecode(candidate)
 
 	
     def delete(self,candidate):
-	del cddict[candidate.c_id]
+	query="DELETE from CANDIDATE where ID= %s"
+	data=(voter_id)
+	cur.execute(query,data);
+
 
     def lists(self):
 	print self.cddict

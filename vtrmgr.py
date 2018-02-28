@@ -1,4 +1,7 @@
+import psycopg2
 from Voter import Voter
+conn = psycopg2.connect(database="election", user = "postgres", password = "postgres", host = "127.0.0.1", port = "5432")
+cur = conn.cursor()
 class votermgr():
     voterdict={}
     def isValid(self,voter):
@@ -10,13 +13,19 @@ class votermgr():
 	    print("You are not satisfying the minimum requirements to vote!!!\n You are under 18!!")
 
     def add(self,voter):
-	self.voterdict[voter.v_id]=voter.v_name
+	query="INSERT INTO VOTERS VALUES (%s,%s,%s,%s)"
+	data=(voter.v_id,voter.v_name,voter.v_age,voter.v_aadhar)
+	cur.execute(query,data);
+	conn.commit()
+	print "Data successfully added"
 
     def addon(self,voter):
 	votermgr.filecode(voter)
 
-    def delete(self,voter):
-	del self.voterdict[voter.v_id]
+    def delete(self,voter_id):
+	query="DELETE from VOTERS where ID= %s"
+	data=(voter_id)
+	cur.execute(query,data);
 
     def deleteon(self,voterid):
 	f = open("vtfile.txt","r")
@@ -32,7 +41,14 @@ class votermgr():
 	f.close()
 
     def vtlist(self):
-	print self.voterdict
+	cur.execute("SELECT id, name, age, aadhar  from VOTERS")
+	rows = cur.fetchall()
+	for row in rows:
+	   print "Voter-ID = ", row[0]
+   	   print "NAME = ", row[1]
+   	   print "Age = ", row[2]
+           print "Aadhar Number = ", row[3], "\n"
+
     
     @staticmethod 
     def filecode(voter):
