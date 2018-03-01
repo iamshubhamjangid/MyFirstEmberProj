@@ -23,14 +23,19 @@ class candidatemgr():
 	candidatemgr.filecode(candidate)
 
 	
-    def delete(self,candidate):
+    def delete(self,cd_id):
 	query="DELETE from CANDIDATE where ID= %s"
-	data=(voter_id)
-	cur.execute(query,data);
-
+	cur.execute(query,cd_id,);
+	conn.commit()
 
     def lists(self):
-	print self.cddict
+	cur.execute("SELECT id, name, age, aadhar  from CANDIDATE")
+	rows = cur.fetchall()
+	for row in rows:
+	   print "CANDIDATE-ID = ", row[0]
+   	   print "NAME = ", row[1]
+   	   print "Age = ", row[2]
+           print "Aadhar Number = ", row[3], "\n"
 
     def deleteon(self,cdid):
 	f = open("cdfile.txt","r")

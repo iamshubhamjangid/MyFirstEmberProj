@@ -36,10 +36,12 @@ def main():
 		  vtch = raw_input("Add Voter?? [Y/N] \t")
 	      else:
 		   choice=raw_input("Want to delete the voter??\t")
-		   if (choice=='y' or 'Y'):
+		   if (choice == 'y' or 'Y'):
 			vtr=votermgr()
 			vtr_id=raw_input("Enter the voter id which you want to delete \t")
 			vtr.delete(vtr_id)
+		   else:
+			pass
 		   opt=raw_input("\n-------------\nChoose one the options\nDisplay Voter---->(V)\n")
 		   filemanager.listing[opt]()
 		   user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\nExit--->[E]")
@@ -56,6 +58,13 @@ def main():
                   if CdMgr.isValid(candidate)==True :
 		     opt=raw_input("Choose one the options\nAdd Candidate---->(A)\n Delete Candidate---->(D)\n")
 		     filemanager.Candidateoptions[opt](candidate)
+		  choice=raw_input("Want to delete the Candidate??\t")
+		  if (choice=='y' or 'Y'):
+			CdMgr=candidatemgr()
+			cd_id=raw_input("Enter the voter id which you want to delete \t")
+			CdMgr.delete(cd_id)
+		  else:
+			pass
 		  cdch = raw_input("Add Candidate?? [Y/N] \t")
 	      else:
 		   choice=raw_input("Want to delete the Candidate??\t")
@@ -69,24 +78,17 @@ def main():
 		   user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\Exit--->[E]n")
 	  else:
 		print("\n------------------------------\nNow Election Manger will Commence the Election Date here\n-----------------------\n")
+		vtrm=votermgr()
 		elm=electionmgr()
 		electiondate=elm.elecdate()
 		if today==electiondate:
 		    print("Now its voting time")
 		    while (time.hour<=17 and time.hour>=10):
 			vtr_id=raw_input("Enter your unique voter Id\t")
-			if votermgr.voterdict.has_key(vtr_id):
-				print("Now you have the following list of candidates for Voting\n Be careful while Voting as once you done with voting cannot be redone!!")
-				cdm=candidatemgr()
-				cdict=candidatemgr.cddict
-				for cndt in cdict:	
-					print cndt
-					print ""
-			
-
-			else:
-				print("you are not registerd for voting!!!")			
-
+			if vtrm.isValid(vtr_id) :
+				print("Now you have the following list of candidates :\n")
+										
+				
 		else:
 		    print("Voting hasn't started \n")
   else:

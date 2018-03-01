@@ -4,7 +4,7 @@ conn = psycopg2.connect(database="election", user = "postgres", password = "post
 cur = conn.cursor()
 class votermgr():
     voterdict={}
-    def isValid(self,voter):
+    def isValidVoter(self,voter):
 	if voter.v_age>=18:
 	   if self.voterdict.has_key(voter.v_id):
 	       print "User already exists!!!\n Not allowed to store multiple Same!!"
@@ -23,9 +23,9 @@ class votermgr():
 	votermgr.filecode(voter)
 
     def delete(self,voter_id):
-	query="DELETE from VOTERS where ID= %s"
-	data=(voter_id)
-	cur.execute(query,data);
+	query="DELETE from VOTERS where VOTERS.ID= %s"	
+	cur.execute(query,(voter_id,));
+	conn.commit()
 
     def deleteon(self,voterid):
 	f = open("vtfile.txt","r")
@@ -49,12 +49,10 @@ class votermgr():
    	   print "Age = ", row[2]
            print "Aadhar Number = ", row[3], "\n"
 
-    
-    @staticmethod 
-    def filecode(voter):
-        vfile = open("vtfile.txt", 'a')
-        vfile.write(voter.v_id)
-        vfile.write(":")
-        vfile.write(voter.v_name)
-        vfile.write("\n")
-        print(vfile)
+    def isValid(self,voter_id):
+	query="SELECT ID FROM VOTERS where VOTERS.ID=%s"
+	if 
+		print("Voter Is Valid ")
+	else:
+		print("Voter is not registered")
+	
